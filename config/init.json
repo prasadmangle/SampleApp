@@ -1,0 +1,6 @@
+{
+    "connString": "mongodb://localhost:27017/productInfo",
+    "secretKey":"my_secret_key",
+    "salt":"my_secret_salt",
+    "superAdmin":"prasad.mangle@otis.com"
+}
