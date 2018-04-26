@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const ProductSchema = require("../models/airline");
+const AirlineSchema = require("../models/airline");
 const auth = require('../common/auth');
 
 
@@ -22,17 +22,19 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.post('/',auth.verifyToken, function (req, res, next) {
+//router.post('/',auth.verifyToken, function (req, res, next) {
+    router.post('/', function (req, res, next) {
     var airline = new AirlineSchema();
-    product.name = req.body.name
+    airline.name = req.body.name
+    airline.owner   = req.body.owner
 
-    product.save((err, createdProductObject) => {
+    airline.save((err, createdAirlineObject) => {
         if (err) {
             res.status(500).send(err);
         }
         // This createdTodoObject is the same one we saved, but after Mongo
         // added its additional properties like _id.
-        res.status(200).send(createdProductObject);
+        res.status(200).send(createdAirlineObject);
     });
 });
 

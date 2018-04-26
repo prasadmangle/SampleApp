@@ -11,6 +11,7 @@ const roles = require('../config/roles')
 
 
 router.post('/register', function (req, res, next) {
+    console.log('Inside register')
     var user = new UserSchema();
     user.name = req.body.name;
 

@@ -6,4 +6,4 @@ const AirlineSchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('airline', AirlineSchemas);
+module.exports = mongoose.model('airline', AirlineSchema);

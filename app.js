@@ -22,7 +22,7 @@ app.use('/api/products', productRouter)
 
 app.use('/api/users', userRouter)
 
-app.use('/api/airlibes', airlineRouter)
+app.use('/api/airlines', airlineRouter)
 
 app.get('/api/protected', auth.verifyToken,auth.isAdmin, (req, res, next) => {
 
