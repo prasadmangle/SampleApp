@@ -7,6 +7,7 @@ const auth = require('./common/auth');
 
 const productRouter = require('./routes/products');
 const userRouter = require('./routes/users');
+const airlineRouter = require('./routes/airlines');
 
 
 //app.use(bodyParser);
@@ -21,14 +22,7 @@ app.use('/api/products', productRouter)
 
 app.use('/api/users', userRouter)
 
-app.post('/api/login', (req, res, next) => {
-    const user = { id: 2 };
-    const token = jwt.sign({ user }, init.secretKey);
-
-    res.json({
-        token: token
-    });
-})
+app.use('/api/airlibes', airlineRouter)
 
 app.get('/api/protected', auth.verifyToken,auth.isAdmin, (req, res, next) => {
 
