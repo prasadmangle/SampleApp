@@ -9,6 +9,20 @@ const jwt = require('jsonwebtoken');
 const roles = require('../config/roles')
 
 
+router.get('/', function (req, res, next) {
+    //var UserSchema = new UserSchema();
+
+    UserSchema.find((err, Users) => {
+        if (err) {
+            // Note that this error doesn't mean nothing was found,
+            // it means the database had an error while searching, hence the 500 status
+            res.status(500).send(err)
+        } else {
+            // send the list of all people
+            res.status(200).send(Users);
+        }
+    });
+});
 
 router.post('/register', function (req, res, next) {
     console.log('Inside register')
@@ -79,15 +93,16 @@ router.post('/login', (req, res, next) => {
                                 token: jwt.sign({ user }, init.secretKey, {
                                     expiresIn: 120,
                                     subject: user.email
-                                })
+                                }),
+                                role: user.role
                             });
-                        }
-                        else {
-                            res.status(401).json({ message: 'Authentication failed. Wrong password.' });
-                        }
-                    }
-                })
             }
+                        else {
+                res.status(401).json({ message: 'Authentication failed. Wrong password.' });
+            }
+        }
+    })
+}
         }
     })
 })

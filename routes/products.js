@@ -21,8 +21,23 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/:id', function (req, res, next) {
+    //var ProductSchema = new ProductSchema();
 
-router.post('/',auth.verifyToken, function (req, res, next) {
+    ProductSchema.findById(req.params.id,(err, Product) => {
+        if (err) {
+            // Note that this error doesn't mean nothing was found,
+            // it means the database had an error while searching, hence the 500 status
+            res.status(500).send(err)
+        } else {
+            // send the list of all people
+            res.status(200).send(Product);
+        }
+    });
+});
+
+
+router.post('/', function (req, res, next) {
     var product = new ProductSchema();
     product.name = req.body.name
 
@@ -36,7 +51,42 @@ router.post('/',auth.verifyToken, function (req, res, next) {
     });
 });
 
-router.delete('/:id',auth.verifyToken, function (req, res, next) {
+router.put('/', function (req, res, next) {
+    var product = new ProductSchema();
+    product.name = req.body.name
+
+    ProductSchema.findById(req.body._id,(err, FoundProduct) => {
+        if (err) {
+            // Note that this error doesn't mean nothing was found,
+            // it means the database had an error while searching, hence the 500 status
+            res.status(500).send(err)
+        } else {
+            FoundProduct.name = req.body.name;
+            FoundProduct
+            res.status(200).send(Product);
+        }
+    });
+});
+
+/*router.post('/:comment', function (req, res, next) {
+    console.log("id: " + req.body._id);
+    console.log("comment: " + req.params.comment );
+    ProductSchema.findById(req.body._id, (err, product) => {
+        if (product == null || err) {
+            res.status(501).send({ "message": "Product " + req.body.pid + " not found." })
+        }
+        else {
+            if (!err) {
+                product.comments.push({ body: req.params.comment });
+                product.save((err) => {
+                    res.status(200).send(product);
+                })
+            }
+        }
+    });
+});*/
+
+router.delete('/:id', function (req, res, next) {
     ProductSchema.findByIdAndRemove(req.params.id, (err, deletedProduct) => {
         if (deletedProduct) {
             let response = {
@@ -45,8 +95,7 @@ router.delete('/:id',auth.verifyToken, function (req, res, next) {
             };
             res.status(200).send(response);
         }
-        else
-        {
+        else {
             let response = {
                 message: "Product not found",
             };
