@@ -30,11 +30,12 @@ router.post('/register', function (req, res, next) {
     user.name = req.body.name;
 
     user.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+    console.log(req.body.email);
     user.email = req.body.email;
     user.created = new Date(dateTime.create().now());
     user.role = roles.user;
 
-
+    console.log(JSON.stringify(user));
     user.save((err, createdUserObject) => {
         if (err) {
             res.status(500).send(err);
