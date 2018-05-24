@@ -33,7 +33,7 @@ router.post('/register', function (req, res, next) {
     console.log(req.body.email);
     user.email = req.body.email;
     user.created = new Date(dateTime.create().now());
-    user.role = roles.user;
+    user.role = req.body.role;
 
     console.log(JSON.stringify(user));
     user.save((err, createdUserObject) => {
@@ -95,15 +95,15 @@ router.post('/login', (req, res, next) => {
                                     expiresIn: 120,
                                     subject: user.email
                                 }),
-                                role: user.role
+                                role: init.superAdmin === user.email ? roles.admin : user.role
                             });
-            }
+                        }
                         else {
-                res.status(401).json({ message: 'Authentication failed. Wrong password.' });
+                            res.status(401).json({ message: 'Authentication failed. Wrong password.' });
+                        }
+                    }
+                })
             }
-        }
-    })
-}
         }
     })
 })

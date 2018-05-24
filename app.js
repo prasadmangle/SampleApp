@@ -11,6 +11,7 @@ const productRouter = require('./routes/products');
 const userRouter = require('./routes/users');
 const airlineRouter = require('./routes/airlines');
 const commentsRouter = require('./routes/comments')
+const starRatingsRouter = require('./routes/starratings')
 
 
 //app.use(bodyParser);
@@ -35,6 +36,8 @@ app.use('/api/users', userRouter)
 app.use('/api/airlines', airlineRouter)
 
 app.use('/api/comments',commentsRouter)
+
+app.use('/api/starratings',starRatingsRouter)
 
 app.get('/api/protected', auth.verifyToken,auth.isAdmin, (req, res, next) => {
 
