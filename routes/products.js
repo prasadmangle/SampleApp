@@ -87,6 +87,7 @@ router.put('/', function (req, res, next) {
 });*/
 
 router.delete('/:id', function (req, res, next) {
+    console.log("Inside delete..")
     ProductSchema.findByIdAndRemove(req.params.id, (err, deletedProduct) => {
         if (deletedProduct) {
             let response = {

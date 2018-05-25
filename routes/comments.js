@@ -24,6 +24,7 @@ router.post('/', function (req, res, next) {
 
 router.post('/:comment', function (req, res, next) {
     console.log("id: " + req.body._id);
+    console.log("Email: " + req.body.userEmail);
     console.log("comment: " + req.params.comment);
     ProductSchema.findById(req.body._id, (err, product) => {
         if (product == null || err) {
@@ -31,7 +32,7 @@ router.post('/:comment', function (req, res, next) {
         }
         else {
             if (!err) {
-                product.comments.push({ body: req.params.comment });
+                product.comments.push({ body: req.params.comment, userEmail: req.body.userEmail });
                 product.save((err) => {
                     res.status(200).send(product);
                 })
