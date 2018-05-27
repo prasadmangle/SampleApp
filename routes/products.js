@@ -40,6 +40,7 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function (req, res, next) {
     var product = new ProductSchema();
     product.name = req.body.name
+    product.imagePath = req.body.imagePath
 
     product.save((err, createdProductObject) => {
         if (err) {

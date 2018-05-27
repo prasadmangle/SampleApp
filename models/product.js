@@ -15,6 +15,7 @@ var StarRating = new Schema({
 const ProductSchema = mongoose.Schema({
     name: String,
     comments: [Comment],
+    imagePath : String,
     starRatings : [StarRating],
     starsCount: { type: Number, default: 5 }
 });
